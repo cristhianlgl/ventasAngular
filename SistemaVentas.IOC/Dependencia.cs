@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SistemaVentas.DAL;
+using SistemaVentas.DAL.Repositorio;
+using SistemaVentas.DAL.Repositorio.Contrato;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,8 @@ namespace SistemaVentas.IOC
         public static void InyectarDependencias(this IServiceCollection services, IConfiguration config ) 
         {
             services.AddDbContext<DbventaContext>(op => op.UseSqlServer(config.GetConnectionString("sql")));
+            services.AddTransient(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+            services.AddScoped<IVentaRepository,VentaRepository>();
         }
     }
 }
