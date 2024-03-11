@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SistemaVentas.BLL.Servicios;
+using SistemaVentas.BLL.Servicios.Contrato;
 using SistemaVentas.DAL;
 using SistemaVentas.DAL.Repositorio;
 using SistemaVentas.DAL.Repositorio.Contrato;
@@ -16,6 +18,14 @@ namespace SistemaVentas.IOC
             services.AddTransient(typeof(IGenericRepository<>),typeof(GenericRepository<>));
             services.AddScoped<IVentaRepository,VentaRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfile));
+
+            services.AddScoped<ICategoriaService,CategoriaService>();
+            services.AddScoped<IDashBoardService,DashBoardService>();
+            services.AddScoped<IMenuService,MenuService>();
+            services.AddScoped<IProductoService,ProductoService>();
+            services.AddScoped<IRolService,RolService>();
+            services.AddScoped<IVentaService,VentaService>();
+            services.AddScoped<IUsuarioService,UsuarioService>();
         }
     }
 }
