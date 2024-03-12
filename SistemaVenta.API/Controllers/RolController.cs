@@ -24,7 +24,7 @@ namespace SistemaVentas.API.Controllers
             try
             { 
                 result.Estatus = true;
-                result.Valor = await rolService.Lista();
+                result.Valor = await _rolService.Lista();
             }
             catch (Exception ex) 
             {
