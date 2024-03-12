@@ -10,6 +10,14 @@ builder.Services.InyectarDependencias(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(op => 
+    op.AddPolicy("nuevaPolitica", 
+        app => {
+            app.AllowAnyHeader();
+            app.AllowAnyMethod();
+            app.AllowAnyOrigin();
+        }));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,6 +26,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("nuevaPolitica");
 
 app.UseHttpsRedirection();
 
