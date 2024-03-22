@@ -9,6 +9,7 @@
 .loginCard{
     max-width: 328px !important;
     margin: 2em auto;
+    padding: 1em;
     text-align: center;
     max-height: 600px;
 }
