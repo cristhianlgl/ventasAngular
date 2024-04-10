@@ -13,7 +13,7 @@ import { UtilidadService } from '../../../../reutilizable/utilidad.service';
   templateUrl: './modal-usuario.component.html',
   styleUrl: './modal-usuario.component.css'
 })
-export class ModalUsuarioComponent {
+export class ModalUsuarioComponent implements OnInit {
 
   formUsuario:FormGroup;
   ocultarClave:boolean = true;
