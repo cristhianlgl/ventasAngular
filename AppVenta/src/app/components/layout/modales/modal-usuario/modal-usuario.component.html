@@ -1,1 +1,64 @@
-<p>modal-usuario works!</p>
+<h2 mat-dialog-title>{{tituloAccion}} Usuario</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="formUsuario">
+       
+        <mat-grid-list cols="1" rowHeight="80px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre Completo</mat-label>
+                    <input matInput autocomplete="off" formControlName="nombre">
+                    <mat-icon matSuffix="account-box"></mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Correo</mat-label>
+                    <input matInput autocomplete="off" formControlName="correo">
+                    <mat-icon matSuffix="mat-dialog-title"></mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Rol</mat-label>
+                    <mat-select formControlName="idRol">
+                        @for (item of listaRol; track $index) {
+                            <mat-option [value]="item.idRol">{{item.nombre}}</mat-option>
+                        }
+                    </mat-select>
+                    <input matInput autocomplete="off" formControlName="nombre">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input [type]="ocultarClave ? 'password' :'text'"
+                     formControlName="clave" matInput autocomplete="off">
+                     <button mat-icon-button matSuffix 
+                     (click)="ocultarClave = !ocultarClave" type="button">
+                        <mat-icon matSuffix>{{ocultarClave?'visibility_off':'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-tile>
+            <mat-form-field appearance="outline">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="esActivo">
+                    <mat-option value="1">Activo</mat-option>
+                    <mat-option value="0">No Activo</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+    <button mat-raised-button color="primary" 
+    [disabled]="formUsuario.invalid" (click)="guardarUsuario()">{{botonAccion}}</button>
+</mat-dialog-actions>

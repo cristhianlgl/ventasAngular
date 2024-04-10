@@ -64,6 +64,36 @@ export class ModalUsuarioComponent {
     }
   }
 
+  private guardar(usuario:Usuario){
+    this._usuarioService.guardar(usuario).subscribe({
+      next:(data)=> {
+        if(data.estatus){
+          this._utilidadService.mostrarAlerta("EL usuario ha sido creado Correctamente","Guardado");
+          this.modalActual.close("true");
+        }
+        else{
+          this._utilidadService.mostrarAlerta("No se pudo registrar el usuario","Error");
+        }
+      },
+      error:(e) => {}
+    })
+  }
+
+  private editar(usuario:Usuario){
+    this._usuarioService.editar(usuario).subscribe({
+      next:(data)=> {
+        if(data.estatus){
+          this._utilidadService.mostrarAlerta("EL usuario ha sido Actualizado Correctamente","Actualizado");
+          this.modalActual.close("true");
+        }
+        else{
+          this._utilidadService.mostrarAlerta("No se pudo Actualizar el usuario","Error");
+        }
+      },
+      error:(e) => {}
+    })
+  }
+
   guardarUsuario(){
     const usuario:Usuario = {
       idUsuario: this.datosUsurio == null ? 0 : this.datosUsurio.idUsuario,
@@ -71,7 +101,14 @@ export class ModalUsuarioComponent {
       correo: this.formUsuario.value.correo,
       clave: this.formUsuario.value.clave,
       idRol: this.formUsuario.value.idRol,
+      rolNombre: "",
       esActivo: parseInt(this.formUsuario.value.esActivo)
+    }
+    if(this.datosUsurio == null){
+      this.guardar(usuario);
+    }
+    else{
+      this.editar(usuario);
     }
   }
 }
