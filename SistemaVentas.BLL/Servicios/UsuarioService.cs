@@ -42,7 +42,7 @@ namespace SistemaVentas.BLL.Servicios
                     throw new TaskCanceledException("El Usuario no se ha creado");
 
                 var query = await _repository.Consultar(x => x.IdUsuario == usuarioCreado.IdUsuario);
-                usuarioCreado = query.Include(rol => rol.IdUsuario).First();
+                usuarioCreado = query.Include(rol => rol.IdRolNavigation).First();
                 return _mapper.Map<UsuarioDTO>(usuarioCreado);
             }
             catch
@@ -85,7 +85,7 @@ namespace SistemaVentas.BLL.Servicios
                 var usuarioEncontrado = await _repository.Obtener(x => x.IdUsuario == id) 
                                       ?? throw new TaskCanceledException("Usuario no Encontrado");
 
-                return await _repository.Editar(usuarioEncontrado) 
+                return await _repository.Eliminar(usuarioEncontrado) 
                        ? true                     
                        : throw new TaskCanceledException("Usuario no se puedo Eliminar");
             }
