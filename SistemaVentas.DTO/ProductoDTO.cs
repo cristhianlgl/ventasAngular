@@ -8,7 +8,7 @@
 
         public int? IdCategoria { get; set; }
 
-        public int? CategoriaNombre { get; set; }
+        public string? CategoriaNombre { get; set; }
 
         public int? Stock { get; set; }
 

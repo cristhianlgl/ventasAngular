@@ -72,7 +72,7 @@ namespace SistemaVentas.BLL.Servicios
                 var producto = await _repository.Obtener(x => x.IdProducto == id)
                              ?? throw new TaskCanceledException("El producto no existe");
 
-                return await _repository.Editar(producto)
+                return await _repository.Eliminar(producto)
                        ? true
                        : throw new TaskCanceledException("El Producto no se puedo Eliminar");
 
