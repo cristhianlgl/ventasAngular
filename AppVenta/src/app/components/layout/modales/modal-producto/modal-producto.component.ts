@@ -18,7 +18,7 @@ import { UtilidadService } from '../../../../reutilizable/utilidad.service';
 
 export class ModalProductoComponent implements OnInit {
   
-  formUsuario:FormGroup;
+  formProducto:FormGroup;
   ocultarClave:boolean = true;
   tituloAccion:string= "Agregar";
   botonAccion:string="Guardar"
@@ -29,10 +29,10 @@ export class ModalProductoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public datosProducto:Producto,
     private fb:FormBuilder, 
     private _categoriaService:CategoriaService,
-    private _productoservice:ProductoService,
+    private _productoService:ProductoService,
     private _utilidadService:UtilidadService,
   ) {
-    this.formUsuario = fb.group({
+    this.formProducto = fb.group({
       nombre: ["", Validators.required],
       idCategoria: ["", Validators.required],
       stock: [0, Validators.required],
@@ -60,7 +60,7 @@ export class ModalProductoComponent implements OnInit {
 
   ngOnInit():void {
     if(this.datosProducto != null){
-      this.formUsuario.patchValue({
+      this.formProducto.patchValue({
         nombre:this.datosProducto.nombre,
         idCategoria:this.datosProducto.idCategoria,
         stock:this.datosProducto.stock,
@@ -71,7 +71,7 @@ export class ModalProductoComponent implements OnInit {
   }
 
   private guardar(Producto:Producto){
-    this._productoservice.guardar(Producto).subscribe({
+    this._productoService.guardar(Producto).subscribe({
       next:(data)=> {
         if(data.estatus){
           this._utilidadService.mostrarAlerta("EL Producto ha sido creado Correctamente","Guardado");
@@ -85,6 +85,36 @@ export class ModalProductoComponent implements OnInit {
     })
   }
 
+  private editar(producto:Producto){
+    this._productoService.editar(producto).subscribe({
+      next:(data)=> {
+        if(data.estatus){
+          this._utilidadService.mostrarAlerta("EL producto ha sido Actualizado Correctamente","Actualizado");
+          this.modalActual.close("true");
+        }
+        else{
+          this._utilidadService.mostrarAlerta("No se pudo Actualizar el producto","Error");
+        }
+      },
+      error:(e) => {}
+    })
+  }
 
-
+  guardarProducto(){
+    const producto:Producto = {
+      idProducto: this.datosProducto == null ? 0 : this.datosProducto.idProducto,
+      nombre: this.formProducto.value.nombre,
+      idCategoria: this.formProducto.value.idCategoria,
+      precio: this.formProducto.value.precio,
+      stock: this.formProducto.value.stock,
+      categoriaNombre: "",
+      esActivo: parseInt(this.formProducto.value.esActivo)
+    }
+    if(this.datosProducto == null){
+      this.guardar(producto);
+    }
+    else{
+      this.editar(producto);
+    }
+  }
 }
