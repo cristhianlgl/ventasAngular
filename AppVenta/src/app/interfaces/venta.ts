@@ -5,6 +5,6 @@ export interface Venta {
     numeroDocumento?: string;
     tipoPago: string;
     total: string;
-    fechaRegistro: string;
+    fechaRegistro?: string;
     detalleVenta: DetalleVenta[];
 }
