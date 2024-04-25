@@ -26,7 +26,7 @@ export class VentaComponent {
   bloquearBotonRegistrar:boolean =false;
 
   productoSelecionado!:Producto;
-  tipoPagoDefault:string = "efectivo";
+  tipoPagoDefault:string = "Efectivo";
   totalPagar:number = 0;
 
   formVenta:FormGroup;
@@ -54,7 +54,8 @@ export class VentaComponent {
           this.listaProducto = lista.filter(x => x.esActivo == 1 && x.stock > 0)
         }
       },
-      error: (error) => { _utilidadService.mostrarAlerta(error, "Error")} 
+      error: (error) => {
+         _utilidadService.mostrarAlerta(error.name, "Error")} 
     })
 
     this.formVenta.get('producto')?.valueChanges.subscribe(value =>
@@ -129,7 +130,9 @@ export class VentaComponent {
           }
         },
         complete:() => this.bloquearBotonRegistrar = false,
-        error: (e) => this._utilidadService.mostrarAlerta(e,"error")
+        error: (e) => {
+          this._utilidadService.mostrarAlerta(e.name,"error")
+        }
       })
     }
   }
