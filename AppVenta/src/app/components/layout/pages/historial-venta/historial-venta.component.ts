@@ -13,7 +13,7 @@ import { Venta } from '../../../../interfaces/venta';
 import { VentaService } from '../../../../services/venta.service';
 import { UtilidadService } from '../../../../reutilizable/utilidad.service';
 
-export const MY_DATA_FORMATS=(
+export const MY_DATA_FORMATS= {
   parse:{
     dateInput:'DD/MM//YYYY'
   },
@@ -21,7 +21,7 @@ export const MY_DATA_FORMATS=(
     dateInput:'DD/MM//YYYY',
     monthYearLabel: 'MMMM YYYY'
   }
-)
+};
 
 @Component({
   selector: 'app-historial-venta',
@@ -38,8 +38,8 @@ export class HistorialVentaComponent implements AfterViewInit {
     { value:"fecha", descripcion:"Por Fechas" },
     { value:"numero", descripcion:"Numero Venta" }
   ];
-  columnasTabla:string[] = ["fechaRegistro","numeroDocumento","tipoPago", "total"],
-  dataInicio:Venta[] = []
+  columnasTabla:string[] = ["fechaRegistro","numeroDocumento","tipoPago", "total", "accion"];
+  dataInicio:Venta[] = [];
   dataListaVenta = new MatTableDataSource(this.dataInicio);
   @ViewChild(MatPaginator) paginacion!:MatPaginator;
 
@@ -65,7 +65,7 @@ export class HistorialVentaComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.dataListaVenta.paginator = this.paginacion; 
+    this.dataListaVenta.paginator = this.paginacion;
   }
 
   aplicarFiltro(event:Event){
@@ -80,7 +80,7 @@ export class HistorialVentaComponent implements AfterViewInit {
     if(this.formBusqueda.get('buscarPor')?.value === 'fecha'){
       _fechaInicio = moment(this.formBusqueda.value.fechaInicio).format('DD/MM/YYYY');
       _fechaFin = moment(this.formBusqueda.value.fechaFin).format('DD/MM/YYYY');
-      
+
       if(_fechaInicio === 'invalid date' || _fechaFin === 'invalid date'){
         this._utilidadService.mostrarAlerta("Debe ingresar ambas fechas",'Oops');
         return;
@@ -110,5 +110,5 @@ export class HistorialVentaComponent implements AfterViewInit {
       width:'700px'
     })
   }
-  
+
 }
