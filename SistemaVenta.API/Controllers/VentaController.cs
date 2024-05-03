@@ -36,13 +36,13 @@ namespace SistemaVentas.API.Controllers
 
         [HttpGet]
         [Route(nameof(Historial))]
-        public async Task<IActionResult> Historial(string buscadoPor, string? nombre, string? fechaIni, string? fechaFin)
+        public async Task<IActionResult> Historial(string buscadoPor, string? numeroVenta, string? fechaIni, string? fechaFin)
         {
             var result = new Response<List<VentaDTO>>();
             try
             {
                 result.Estatus = true;
-                result.Valor = await _service.HistorialAsync(buscadoPor, nombre, fechaIni, fechaFin);
+                result.Valor = await _service.HistorialAsync(buscadoPor, numeroVenta, fechaIni, fechaFin);
             }
             catch (Exception ex)
             {
