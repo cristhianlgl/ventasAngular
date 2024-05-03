@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import moment from 'moment';
-import XLSX from 'xlsx';
+import * as XLSX from 'xlsx';
 
 import { Reporte } from '../../../../interfaces/reporte';
 import { VentaService } from '../../../../services/venta.service';

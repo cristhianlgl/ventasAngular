@@ -1,0 +1,13 @@
+.campos-formulario{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.boton-buscar{
+  width: 150px;
+}
+
+.table{
+  width: 100%;
+}
