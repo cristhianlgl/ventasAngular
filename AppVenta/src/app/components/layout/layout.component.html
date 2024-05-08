@@ -4,36 +4,28 @@
     <button mat-icon-button (click)="nav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
+
+    <span style="flex: 1 1 auto;"></span>
+    <label style="font-size: 14px; margin-right: 20px;">
+    {{correoUsuario}} | {{rolUsuario}}
+    </label>
+    <button mat-icon-button (click)="cerrarSesion()">
+      <mat-icon>logout</mat-icon>
+    </button>
+
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav #nav opened="true" mode="side" style="width: 210px;">
     <mat-nav-list>
-      <mat-list-item routerLink="/pages/dashboard">
-        <mat-icon matListItemIcon>dashboard</mat-icon>
-        <div matListItemTitle>DashBoard</div>
-      </mat-list-item>
-      <mat-list-item routerLink="/pages/usuario">
-        <mat-icon matListItemIcon>group</mat-icon>
-        <div matListItemTitle>Usuario</div>
-      </mat-list-item>
-      <mat-list-item routerLink="/pages/productos">
-        <mat-icon matListItemIcon>collections_bookmak</mat-icon>
-        <div matListItemTitle>Productos</div>
-      </mat-list-item>
-      <mat-list-item routerLink="/pages/ventas">
-        <mat-icon matListItemIcon>currency_exchange</mat-icon>
-        <div matListItemTitle>Ventas</div>
-      </mat-list-item>
-      <mat-list-item routerLink="/pages/historial">
-        <mat-icon matListItemIcon>edit_note</mat-icon>
-        <div matListItemTitle>Historial Venta</div>
-      </mat-list-item>
-      <mat-list-item routerLink="/pages/reportes">
-        <mat-icon matListItemIcon>receipt</mat-icon>
-        <div matListItemTitle>Reportes</div>
-      </mat-list-item>
+       @for (menu of listaMenus; track $index) 
+      {
+        <mat-list-item [routerLink]="menu.url">
+          <mat-icon matListItemIcon>{{menu.icono}}</mat-icon>
+          <div matListItemTitle>{{menu.nombre}}</div>
+        </mat-list-item>
+      }      
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
